@@ -14,7 +14,9 @@ public class JKTV22Library {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello JKTV22");
+        App app;
+        app = new  App();
+        app.run();
     }
     
 }
