@@ -12,6 +12,7 @@ import entity.History;
 import entity.Reader;
 import java.util.Arrays;
 import java.util.Scanner;
+import tools.KeyboardInput;
 
 /**
  *
@@ -27,7 +28,7 @@ class App {
     private HistoryManager historyManager;
 
     public App() {
-        this.books = new Book[0];
+        this.books = new Book[0];//считывание массива книг из файла
         this.readers = new Reader[0];
         this.histories = new History[0];
         this.scanner = new Scanner(System.in);
@@ -50,7 +51,7 @@ class App {
             System.out.println("6.Print list give out books");
             System.out.println("7.Return book");
             System.out.print("Set task: ");
-            int task = scanner.nextInt();scanner.nextLine();            
+            int task = KeyboardInput.inputNumber(0, 7);            
             switch (task) {
                 case 0:
                     System.out.println("Good buy");
@@ -86,6 +87,7 @@ class App {
     private void addBookToArray(Book book) {
         this.books = Arrays.copyOf(books, books.length + 1);
         this.books[books.length -1 ] = book;
+        //сохранить в файл массив книг 
     }
 
     private void addReaderToArray(Reader reader) {
