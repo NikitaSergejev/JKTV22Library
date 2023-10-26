@@ -4,13 +4,14 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author pupil
  */
-public class Author {
+public class Author implements Serializable {
     private String firstname;
     private String lastname;
 

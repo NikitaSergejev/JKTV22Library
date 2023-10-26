@@ -10,6 +10,7 @@ import entity.History;
 import entity.Reader;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import tools.KeyboardInput;
 
 /**
  *
@@ -39,16 +40,16 @@ public class HistoryManager {
         */     
         
         readerManager.printListReaders(readers);        
-        int selectedReaderNumber = scanner.nextInt(); scanner.nextLine();     
+        int selectedReaderNumber = KeyboardInput.inputNumber(1, 100);     
         history.setReader(readers[selectedReaderNumber-1]);
         bookManager.printListBooks(books);      
-        int selectedBookNumber = scanner.nextInt(); scanner.nextLine();
+        int selectedBookNumber = KeyboardInput.inputNumber(1, 100);
         history.setBook(books[selectedBookNumber-1]);
         history.setDateOnHand(new GregorianCalendar().getTime());
         return history;
     } 
 
-    public void returnBook(History[] histories) {
+    public History[] returnBook(History[] histories) {
         bookManager.printListGiveOutBooks(histories);
         System.out.println("Select book for return: ");
         int historyNumber = scanner.nextInt();scanner.nextLine();
@@ -56,6 +57,7 @@ public class HistoryManager {
         System.out.printf("Book \"%s\" returned %n",
                 histories[historyNumber-1].getBook().getTitle()
             );
+        return histories;
     }
     
 }

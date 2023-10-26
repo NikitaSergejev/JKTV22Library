@@ -27,7 +27,7 @@ private Scanner scanner;
         System.out.print("Input title: ");
         book.setTitle(scanner.nextLine());
         System.out.print("Enter published year: ");
-        book.setPublishedYear(KeyboardInput.inputNumber(1, 10));
+        book.setPublishedYear(scanner.nextInt());
         scanner.nextLine();
         System.out.print("How many authors: ");
         int countAuthors= scanner.nextInt(); scanner.nextLine();
@@ -45,7 +45,7 @@ private Scanner scanner;
     }
 
     public void printListBooks(Book[] books) {
-        System.out.println("-----List books ------");
+        System.out.println("-----List books --- ");                
         for (int i = 0; i < books.length; i++) {
             StringBuilder sbAuthorsBook = new StringBuilder();
             for (int j = 0; j < books[i].getAuthors().length; j++) {
