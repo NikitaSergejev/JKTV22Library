@@ -18,14 +18,18 @@ import java.util.Objects;
     private String title;
     private int publishedYear;
     private Author[] authors = new Author[0];
+    private int quantity;//Количестово экземпляров в библиотеке
+    private int count;//Количество экземпляров в наличии
 
     public Book() {
     }
 
-    public Book(String title, int publishedYear, Author[] authors) {
+    public Book(String title, int publishedYear, Author[] authors, int quantity) {
         this.title = title;
         this.publishedYear = publishedYear;
         this.authors = authors;
+        this.quantity = quantity;
+        this.count = this.quantity;//книгу принесли и сразу записываем в quantity
     }
 
     public Author[] getAuthors() {
@@ -90,8 +94,25 @@ import java.util.Objects;
         sb.append("title=").append(title);
         sb.append(", publishedYear=").append(publishedYear);
         sb.append(", authors=").append(Arrays.toString(authors));
+        sb.append(", count=").append(this.count);
         sb.append('}');
         return sb.toString();
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
     
 }

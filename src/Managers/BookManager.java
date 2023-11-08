@@ -30,7 +30,7 @@ private Scanner scanner;
         book.setPublishedYear(scanner.nextInt());
         scanner.nextLine();
         System.out.print("How many authors: ");
-        int countAuthors= scanner.nextInt(); scanner.nextLine();
+        int countAuthors=(KeyboardInput.inputNumber(1, 10));
         for (int i = 0; i < countAuthors; i++) {
             System.out.println(i+1+"author: ");
             System.out.print("Author firstname: ");
@@ -39,8 +39,12 @@ private Scanner scanner;
             String authorLastname = scanner.nextLine();
             book.addAuthor(new Author(authorFirstname,authorLastname));
         }
+            System.out.print("Enter quantity copy: ");
+            book.setQuantity(KeyboardInput.inputNumber(1, 10));
+            book.setCount(book.getQuantity());
             System.out.println("Added book: ");
             System.out.println(book.toString());
+            
             return book;
     }
 
@@ -55,19 +59,21 @@ private Scanner scanner;
                 sbAuthorsBook.append(author.getLastname()+ ". ");                                
             }
             
-            System.out.printf("%d. %s. %d. %s%n",
+            System.out.printf("%d. %s. %d. Authors: %s.  Count: %d%n",
                     i+1,
                     books[i].getTitle(),
                     books[i].getPublishedYear(),
-                    Arrays.toString(books[i].getAuthors()));                      
-        }
+                    sbAuthorsBook.toString(),                    
+                    books[i].getCount()
+            );
+                    }
     }
 
     public void printListGiveOutBooks(History[] histories) {
          System.out.println("-----List books of hands ------");
          for (int i = 0; i < histories.length; i++) {
             if(histories[i].getDateBack()== null);{
-             System.out.printf("%d. \"%s\" to read %s %s. %s",
+             System.out.printf("%d. \"%s\" to read %s %s. %s%n",
                      i+1,
                      histories[i].getBook().getTitle(),
                      histories[i].getReader().getFirstname(),

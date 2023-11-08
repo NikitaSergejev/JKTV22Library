@@ -21,11 +21,16 @@ import java.io.ObjectOutputStream;
  * @author pupil
  */
 public class SaveManager {
+    
+    private final String BOOKS_FILENAME = "books";
+    private final String READERS_FILENAME = "readers";
+    private final String HISTORIES_FILENAME = "histories"; 
+    
     public void saveBooks(Book[] books){
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
-            fos = new FileOutputStream("books");
+            fos = new FileOutputStream(BOOKS_FILENAME);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(books);
             fos.flush();
@@ -40,7 +45,7 @@ public class SaveManager {
       FileInputStream fis;
       ObjectInputStream ois; 
         try {
-            fis = new FileInputStream("books");
+            fis = new FileInputStream(BOOKS_FILENAME);
             ois = new ObjectInputStream(fis);
             books = (Book[]) ois.readObject();           
         } catch (FileNotFoundException ex) {
@@ -57,7 +62,7 @@ public class SaveManager {
       FileInputStream fis;
       ObjectInputStream ois; 
         try {
-            fis = new FileInputStream("histories");
+            fis = new FileInputStream(READERS_FILENAME);
             ois = new ObjectInputStream(fis);
             readers = (Reader[]) ois.readObject();           
         } catch (FileNotFoundException ex) {
@@ -74,7 +79,7 @@ public class SaveManager {
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
-            fos = new FileOutputStream("histories");
+            fos = new FileOutputStream(READERS_FILENAME);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(readers);
             oos.flush();
@@ -90,7 +95,7 @@ public class SaveManager {
       FileInputStream fis;
       ObjectInputStream ois; 
         try {
-            fis = new FileInputStream("histories");
+            fis = new FileInputStream(HISTORIES_FILENAME);
             ois = new ObjectInputStream(fis);
             histories = (History[]) ois.readObject();           
         } catch (FileNotFoundException ex) {
@@ -108,7 +113,7 @@ public class SaveManager {
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
-            fos = new FileOutputStream("histories");
+            fos = new FileOutputStream(HISTORIES_FILENAME);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(histories);
             oos.flush();

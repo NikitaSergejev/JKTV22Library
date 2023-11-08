@@ -12,6 +12,7 @@ import entity.Book;
 import entity.History;
 import entity.Reader;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import tools.KeyboardInput;
 
@@ -20,7 +21,8 @@ import tools.KeyboardInput;
  * @author pupil
  */
 class App {
-    private Book[] books;
+    //private Book[] books;
+    private List<Book> books;
     private Reader[] readers;
     private History[] histories;
     private final Scanner scanner;
@@ -32,8 +34,8 @@ class App {
     public App() {
         this.saveManager = new SaveManager();
         this.books = saveManager.loadBooks();//считывание массива книг из файла
-        this.readers = new Reader[0];
-        this.histories = new History[0];
+        this.readers = saveManager.loadReaders();//считывание массива читателей из файла
+        this.histories = saveManager.loadHistories();//считывание массива истории
         this.scanner = new Scanner(System.in);
         this.readerManager = new ReaderManager(scanner);
         this.bookManager = new BookManager(scanner);
@@ -67,7 +69,10 @@ class App {
                     addReaderToArray(readerManager.addReader());
                     break;
                 case 3:
-                   addHistoryToArray(historyManager.giveOutBook(books, readers));
+                    History history = historyManager.giveOutBook(books, readers);                  
+                    if (history !=null) {
+                    addHistoryToArray(history);
+                    }
                     break;
                 case 4:                 
                     readerManager.printListReaders(readers);
@@ -78,8 +83,12 @@ class App {
                  case 6:
                     bookManager.printListGiveOutBooks(histories);
                     break;
-                 case 7:                    
-                    historyManager.returnBook(histories);
+                 case 7:  
+                    History[] histories = historyManager.returnBook(this.histories);
+                    if(histories != null) {
+                        this.histories = histories;
+                        saveManager.saveHistories(this.histories);
+                    }
                     break;
                 default:
                     System.out.println("Choice number from list !");;
