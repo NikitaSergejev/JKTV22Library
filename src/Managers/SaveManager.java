@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,7 +28,7 @@ public class SaveManager {
     private final String READERS_FILENAME = "readers";
     private final String HISTORIES_FILENAME = "histories"; 
     
-    public void saveBooks(Book[] books){
+    public void saveBooks(List<Book> books){
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
@@ -40,14 +42,14 @@ public class SaveManager {
             System.out.println("Error I/0");
         }
     }
-    public Book[] loadBooks(){
-      Book[] books = new Book[0];
+    public List<Book> loadBooks(){
+      List<Book> books = new ArrayList<>();
       FileInputStream fis;
       ObjectInputStream ois; 
         try {
             fis = new FileInputStream(BOOKS_FILENAME);
             ois = new ObjectInputStream(fis);
-            books = (Book[]) ois.readObject();           
+            books = ( List<Book>) ois.readObject();           
         } catch (FileNotFoundException ex) {
              System.out.println("File \"books\" does not exist");
         }catch (IOException ex) {
@@ -57,14 +59,14 @@ public class SaveManager {
           }
         return books;
     }
-    public Reader[] loadReaders(){
-     Reader[] readers = new Reader[0];
+    public List<Reader> loadReaders(){
+     List<Reader> readers = new ArrayList<>();
       FileInputStream fis;
       ObjectInputStream ois; 
         try {
             fis = new FileInputStream(READERS_FILENAME);
             ois = new ObjectInputStream(fis);
-            readers = (Reader[]) ois.readObject();           
+            readers = (List<Reader>) ois.readObject();           
         } catch (FileNotFoundException ex) {
              System.out.println("File \"histories\" does not exist");
         }catch (IOException ex) {
@@ -75,7 +77,7 @@ public class SaveManager {
         return readers;  
         
     }
-    public void saveReaders(Reader[] readers) {
+    public void saveReaders(List<Reader> readers) {
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
@@ -90,14 +92,14 @@ public class SaveManager {
         }
     }
 
-    public History[] loadHistories() {
-     History[] histories = new History[0];
+    public List<History> loadHistories() {
+     List<History> histories = new ArrayList<>();
       FileInputStream fis;
       ObjectInputStream ois; 
         try {
             fis = new FileInputStream(HISTORIES_FILENAME);
             ois = new ObjectInputStream(fis);
-            histories = (History[]) ois.readObject();           
+            histories = (List<History>) ois.readObject();           
         } catch (FileNotFoundException ex) {
              System.out.println("File \"histories\" does not exist");
         }catch (IOException ex) {
@@ -109,7 +111,7 @@ public class SaveManager {
         
     }
             
-    public void saveHistories(History[] histories) {
+    public void saveHistories(List<History> histories) {
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
