@@ -30,19 +30,19 @@ public class DatabaseManager {
       *4. если ид книги = нулл, сохраняем книгу
       * 5. иначе делаем обновление
       */ 
-     em.getTransaction().begin();
+    em.getTransaction().begin();
         for (int i = 0; i < book.getAuthors().size(); i++) {
-            if(book.getAuthors().get(i).getId() === null){
+            if(book.getAuthors().get(i).getId() == null){
                 em.persist((book.getAuthors().get(i)));
             }else {
                 em.merge(book.getAuthors().get(i));
-            }
-            if(book.getId()=== null){
-                em.persist(book);
-            }else{
-                em.merge(book);
-            }
-            
+            }                    
         }
+        if(book.getId()== null){
+            em.persist(book);
+        }else{
+            em.merge(book);
+        }
+    em.getTransaction().commit();
     }
 }
