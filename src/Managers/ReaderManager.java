@@ -6,6 +6,7 @@
 package Managers;
 
 import entity.Reader;
+import facades.ReaderFacade;
 
 import java.util.Scanner;
 
@@ -14,12 +15,14 @@ import java.util.Scanner;
  * @author pupil
  */
 public class ReaderManager {
-private Scanner scanner;
+    private Scanner scanner;
+    private final ReaderFacade readerFacade;
     public ReaderManager(Scanner scanner) {
         this.scanner = scanner;
+        this.readerFacade = new ReaderFacade();
     }
 
-    public Reader addReader() {
+    public void createReader() {
         Reader reader = new Reader();
         System.out.print("Input firstname: ");
         reader.setFirstname(scanner.nextLine());
@@ -29,7 +32,7 @@ private Scanner scanner;
         reader.setPhone(scanner.nextLine());
         System.out.println("Added reader: ");
         System.out.println(reader.toString());
-        return reader;
+        readerFacade.create(reader);
         
     }
 

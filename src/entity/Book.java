@@ -1,7 +1,17 @@
 package entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 /*
@@ -13,51 +23,33 @@ import java.util.Objects;
  *
  * @author pupil
  */
- public class Book {
+@Entity
+ public class Book implements Serializable {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Basic()
+    @Column()
     private String title;
     private int publishedYear;
-    private Author[] authors = new Author[0];
+    @OneToMany
+    private List<Author> authors = new ArrayList<>();
 
     public Book() {
     }
 
-    public Book(String title, int publishedYear, Author[] authors) {
+    public Book(String title, int publishedYear, List<Author> authors) {
         this.title = title;
         this.publishedYear = publishedYear;
         this.authors = authors;
     }
 
-    public Author[] getAuthors() {
-        return authors;
-    }
-
-    public void addAuthor(Author author) {       
-        this.authors = Arrays.copyOf(authors, authors.length+1);
-        this.authors[authors.length-1] = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getPublishedYear() {
-        return publishedYear;
-    }
-
-    public void setPublishedYear(int publishedYear) {
-        this.publishedYear = publishedYear;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.title);
-        hash = 53 * hash + this.publishedYear;
-        hash = 53 * hash + Arrays.deepHashCode(this.authors);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.title);
+        hash = 47 * hash + this.publishedYear;
+        hash = 47 * hash + Objects.hashCode(this.authors);
         return hash;
     }
 
@@ -79,18 +71,55 @@ import java.util.Objects;
         if (!Objects.equals(this.title, other.title)) {
             return false;
         }
-        return Arrays.deepEquals(this.authors, other.authors);
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.authors, other.authors)) {
+            return false;
+        }
+        return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getPublishedYear() {
+        return publishedYear;
+    }
+
+    public void setPublishedYear(int publishedYear) {
+        this.publishedYear = publishedYear;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Book{");
-        sb.append("title=").append(title);
-        sb.append(", publishedYear=").append(publishedYear);
-        sb.append(", authors=").append(Arrays.toString(authors));
-        sb.append('}');
-        return sb.toString();
+        return "Book{" + "id=" + id 
+                + ", title=" + title 
+                + ", publishedYear=" + publishedYear 
+                + ", authors=" + Arrays.toString(authors.toArray()) 
+                + '}';
     }
+
     
 }

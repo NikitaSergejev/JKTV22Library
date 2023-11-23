@@ -5,15 +5,22 @@
 package entity;
 
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author pupil
  */
+@Entity
 public class Reader {
-    String firstname;
-    String lastname;
-    String phone;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+    private String firstname;
+    private String lastname;
+    private String phone;
 
     public Reader() {
     }
@@ -22,6 +29,14 @@ public class Reader {
         this.firstname = firstname;
         this.lastname = lastname;
         this.phone = phone;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
     public String getFirstname() {
@@ -51,9 +66,10 @@ public class Reader {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.firstname);
-        hash = 79 * hash + Objects.hashCode(this.lastname);
-        hash = 79 * hash + Objects.hashCode(this.phone);
+        hash = 53 * hash + Objects.hashCode(this.Id);
+        hash = 53 * hash + Objects.hashCode(this.firstname);
+        hash = 53 * hash + Objects.hashCode(this.lastname);
+        hash = 53 * hash + Objects.hashCode(this.phone);
         return hash;
     }
 
@@ -75,18 +91,24 @@ public class Reader {
         if (!Objects.equals(this.lastname, other.lastname)) {
             return false;
         }
-        return Objects.equals(this.phone, other.phone);
+        if (!Objects.equals(this.phone, other.phone)) {
+            return false;
+        }
+        if (!Objects.equals(this.Id, other.Id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Reader{");
-        sb.append("firstname=").append(firstname);
-        sb.append(", lastname=").append(lastname);
-        sb.append(", phone=").append(phone);
-        sb.append('}');
-        return sb.toString();
+        return "Reader{" + "Id=" + Id 
+                + ", firstname=" + firstname 
+                + ", lastname=" + lastname 
+                + ", phone=" + phone 
+                + '}';
     }
+
+    
     
 }
