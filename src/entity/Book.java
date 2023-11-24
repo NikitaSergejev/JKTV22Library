@@ -32,7 +32,7 @@ import javax.persistence.OneToMany;
     private String title;
     private int publishedYear;
     @OneToMany
-    private List<Author> authors = new ArrayList<>();
+    public List<Author> authors = new ArrayList<>();
 
     public Book() {
     }

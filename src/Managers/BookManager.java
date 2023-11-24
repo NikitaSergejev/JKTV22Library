@@ -8,6 +8,7 @@ package Managers;
 import entity.Author;
 import entity.Book;
 import entity.History;
+import facades.AuthorFacade;
 import facades.BookFacade;
 import facades.HistoryFacade;
 import java.util.ArrayList;
@@ -25,11 +26,13 @@ public class BookManager {
     private final AuthorManager authorManager;
     private final BookFacade bookFacade;
     private final HistoryFacade historyFacade;
+    private final AuthorFacade authorFacade;
     public BookManager(Scanner scanner) {
         this.scanner = scanner;
         this.authorManager = new AuthorManager(scanner);
         this.bookFacade = new BookFacade();
         this.historyFacade = new HistoryFacade();
+        this.authorFacade = new AuthorFacade();
     }
     public void createBook() {
         Book book = new Book();
@@ -65,6 +68,7 @@ public class BookManager {
 
     public void printListBooks() {
         List<Book> books = bookFacade.findAll();
+        List<Author> authors = authorFacade.findAll();
         System.out.println("-----List books ------");
         for (int i = 0; i < books.size(); i++) {
             StringBuilder sbAuthorsBook = new StringBuilder();
@@ -76,7 +80,7 @@ public class BookManager {
                 sbAuthorsBook.append(". ");
             }
             
-            System.out.printf("%d. %s. %d. %s%n",
+            System.out.printf("%d. %s. %d. %s%n \n",
                     i+1,
                     books.get(i).getTitle(),
                     books.get(i).getPublishedYear(),
@@ -89,7 +93,7 @@ public class BookManager {
          System.out.println("-----List books of hands ------");
          for (int i = 0; i < histories.size(); i++) {
             if(histories.get(i).getDateBack()== null);{
-             System.out.printf("%d. \"%s\" to read %s %s. %s",
+             System.out.printf("%d. \"%s\" to read %s %s. %s \n",
                      i+1,
                      histories.get(i).getBook().getTitle(),
                      histories.get(i).getReader().getFirstname(),

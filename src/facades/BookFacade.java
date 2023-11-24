@@ -32,7 +32,7 @@ public class BookFacade {
     }
     public List<Book> findAll(){ 
         
-        return em.createQuery("SELECT author FROM Author author").getResultList();     
+        return em.createQuery("SELECT book FROM Book book").getResultList();     
     }
     public void edit(Book book){
       em.getTransaction().begin();
