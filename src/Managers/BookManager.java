@@ -9,6 +9,7 @@ import entity.Author;
 import entity.Book;
 import entity.History;
 import facades.BookFacade;
+import facades.HistoryFacade;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,10 +24,12 @@ public class BookManager {
     private final Scanner scanner;
     private final AuthorManager authorManager;
     private final BookFacade bookFacade;
+    private final HistoryFacade historyFacade;
     public BookManager(Scanner scanner) {
         this.scanner = scanner;
         this.authorManager = new AuthorManager(scanner);
         this.bookFacade = new BookFacade();
+        this.historyFacade = new HistoryFacade();
     }
     public void createBook() {
         Book book = new Book();
@@ -50,16 +53,14 @@ public class BookManager {
         List<Author> authorsBook = new ArrayList<>();         
         for (int i = 0; i < countAuthors; i++) {
             System.out.printf("Выберите автора %d: ",i+1);
-            int idAuthor = InputFromKeyboard.inputNumberFromRange(1, null);
-            authorsBook.add(authorManager.find(idAuthor));
-                
-            
+            int idAuthor = InputFromKeyboard.inputNumberFromRange(1, 50);
+            authorsBook.add(authorManager.find(idAuthor));        
         }
         book.setAuthors(authorsBook);      
         
         System.out.println("Added book: ");
         System.out.println(book.toString()); 
-        bookFacade.createBook(book);
+        bookFacade.create(book);
         }
 
     public void printListBooks() {
@@ -83,19 +84,24 @@ public class BookManager {
         }
     }
 
-    public void printListGiveOutBooks(History[] histories) {
+    public void printListGiveOutBooks() {
+        List<History> histories = historyFacade.findAll();
          System.out.println("-----List books of hands ------");
-         for (int i = 0; i < histories.length; i++) {
-            if(histories[i].getDateBack()== null);{
+         for (int i = 0; i < histories.size(); i++) {
+            if(histories.get(i).getDateBack()== null);{
              System.out.printf("%d. \"%s\" to read %s %s. %s",
                      i+1,
-                     histories[i].getBook().getTitle(),
-                     histories[i].getReader().getFirstname(),
-                     histories[i].getReader().getLastname(),
-                     histories[i].getReader().getPhone()
+                     histories.get(i).getBook().getTitle(),
+                     histories.get(i).getReader().getFirstname(),
+                     histories.get(i).getReader().getLastname(),
+                     histories.get(i).getReader().getPhone()
                 );
             }
         }
+    }
+
+    List<Book> books() {
+        return bookFacade.findAll();
     }
 
     

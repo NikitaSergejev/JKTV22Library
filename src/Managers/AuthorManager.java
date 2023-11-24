@@ -41,7 +41,7 @@ public class AuthorManager {
         author.setFirstname(scanner.nextLine());
         System.out.println("Surname:");
         author.setLastname(scanner.nextLine());
-        authorFacade.createAuthor(author);
+        authorFacade.create(author);
     }
     
 }

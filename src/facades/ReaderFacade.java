@@ -22,7 +22,7 @@ public class ReaderFacade {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("JKTV22LibraryPU");
         this.em = emf.createEntityManager();
     }
-    public void createReader(Reader reader) {
+    public void create(Reader reader) {
         em.getTransaction().begin();
             em.persist(reader);
         em.getTransaction().commit();
@@ -32,7 +32,7 @@ public class ReaderFacade {
     }
     public List<Reader> findAll(){ 
         
-        return em.createQuery("SELECT author FROM Author author").getResultList();     
+        return em.createQuery("SELECT reader FROM Reader reader").getResultList();     
     }
     public void edit(Reader reader){
       em.getTransaction().begin();

@@ -22,7 +22,7 @@ public class AuthorFacade {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("JKTV22LibraryPU");
         this.em = emf.createEntityManager();
     }
-    public void createAuthor(Author author) {
+    public void create(Author author) {
         em.getTransaction().begin();
             em.persist(author);
         em.getTransaction().commit();
