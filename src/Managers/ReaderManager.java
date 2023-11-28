@@ -52,8 +52,8 @@ public class ReaderManager {
     public List<Reader> readers(){
         return readerFacade.findAll();
     }
-    public Reader findById (Long id){
-        return readerFacade.find(id);
+    public Reader findById (int id){
+        return readerFacade.find((long)id);
     }
     
 }

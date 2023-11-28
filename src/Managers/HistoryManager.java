@@ -46,10 +46,10 @@ public class HistoryManager {
         
         readerManager.printListReaders();        
         int selectedReaderNumber = scanner.nextInt(); scanner.nextLine();     
-        history.setReader(readers.get(selectedReaderNumber-1));
+        history.setReader(readerManager.findById(selectedReaderNumber));
         bookManager.printListBooks();      
         int selectedBookNumber = scanner.nextInt(); scanner.nextLine();
-        history.setBook(books.get(selectedBookNumber-1));
+        history.setBook(bookManager.findById(selectedBookNumber));
         history.setDateOnHand(new GregorianCalendar().getTime());
         historyFacade.create(history);
         System.out.printf("%s выдана читателю: %s %s%n",

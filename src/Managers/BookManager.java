@@ -108,5 +108,9 @@ public class BookManager {
         return bookFacade.findAll();
     }
 
+    public Book findById(int id) {
+        return bookFacade.find((long)id);
+    }
+
     
 }
