@@ -12,6 +12,7 @@ import facades.HistoryFacade;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
+import tools.InputFromKeyboard;
 
 /**
  *
@@ -44,11 +45,12 @@ public class HistoryManager {
             5.добавить в history дату выдачи книги (текущую дату)
         */     
         
-        readerManager.printListReaders();        
-        int selectedReaderNumber = scanner.nextInt(); scanner.nextLine();     
+        List<Integer> listId = readerManager.printListReaders();        
+       int selectedReaderNumber =  InputFromKeyboard.inputNumberFromRange(listId);//scanner.nextInt(); scanner.nextLine();
+       
         history.setReader(readerManager.findById(selectedReaderNumber));
-        bookManager.printListBooks();      
-        int selectedBookNumber = scanner.nextInt(); scanner.nextLine();
+        listId = bookManager.printListBooks(); 
+         int selectedBookNumber = InputFromKeyboard.inputNumberFromRange(listId);
         history.setBook(bookManager.findById(selectedBookNumber));
         history.setDateOnHand(new GregorianCalendar().getTime());
         historyFacade.create(history);

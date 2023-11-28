@@ -66,9 +66,9 @@ public class BookManager {
         bookFacade.create(book);
         }
 
-    public void printListBooks() {
-        List<Book> books = bookFacade.findAll();
-        List<Author> authors = authorFacade.findAll();
+    public List<Integer> printListBooks() {
+        List<Book> books = bookFacade.findAll();      
+        List<Integer> arrayBookId = new ArrayList<>();
         System.out.println("-----List books ------");
         for (int i = 0; i < books.size(); i++) {
             StringBuilder sbAuthorsBook = new StringBuilder();
@@ -81,18 +81,21 @@ public class BookManager {
             }
             
             System.out.printf("%d. %s. %d. %s%n \n",
-                    i+1,
+                    books.get(i).getId(),
                     books.get(i).getTitle(),
                     books.get(i).getPublishedYear(),
-                    sbAuthorsBook.toString());                      
-        }
+                    sbAuthorsBook.toString()); 
+            arrayBookId.add(books.get(i).getId().intValue());
+        
+        }     
+        return arrayBookId;
     }
 
     public void printListGiveOutBooks() {
         List<History> histories = historyFacade.findAll();
          System.out.println("-----List books of hands ------");
-         for (int i = 0; i < histories.size(); i++) {
-            if(histories.get(i).getDateBack()== null);{
+         for (int i = 0; i < histories.size(); i++){
+            if(histories.get(i).getDateBack()== null){
              System.out.printf("%d. \"%s\" to read %s %s. %s \n",
                      i+1,
                      histories.get(i).getBook().getTitle(),
@@ -100,6 +103,8 @@ public class BookManager {
                      histories.get(i).getReader().getLastname(),
                      histories.get(i).getReader().getPhone()
                 );
+            }else{
+                System.out.println("Not found give out books");
             }
         }
     }

@@ -7,6 +7,7 @@ package Managers;
 
 import entity.Reader;
 import facades.ReaderFacade;
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Scanner;
@@ -37,8 +38,9 @@ public class ReaderManager {
         
     }
 
-    public void printListReaders() {
+    public List<Integer> printListReaders() {
         List<Reader> readers = readerFacade.findAll();
+        List<Integer> arrayReaderId = new ArrayList<>();
         System.out.println("-----List readers ------");
         for (int i = 0; i < readers.size(); i++) {
             System.out.printf("%d. %s %s. %s%n",
@@ -46,8 +48,10 @@ public class ReaderManager {
                     readers.get(i).getFirstname(),
                     readers.get(i).getLastname(),
                     readers.get(i).getPhone()
-            );            
+            );    
+            arrayReaderId.add(readers.get(i).getId().intValue());
         }
+         return arrayReaderId;
     }
     public List<Reader> readers(){
         return readerFacade.findAll();
