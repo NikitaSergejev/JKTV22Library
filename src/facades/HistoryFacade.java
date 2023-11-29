@@ -8,8 +8,7 @@ package facades;
 import entity.History;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import tools.EntityManagerSingleton;
 
 /**
  *
@@ -20,13 +19,18 @@ public class HistoryFacade extends AbstractFacade<History>{
     
    public HistoryFacade() {
         super(History.class);
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JKTV22LibraryPU");
-        this.em = emf.createEntityManager();
+        EntityManagerSingleton entityManagerSingleton = EntityManagerSingleton.getInstance();
+        this.em=entityManagerSingleton.getEntityManager();
         
     }
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public List<History> findAllReadingBooks() {
+       // return em.createQuery("SELECT h FROM History h WHERE h.dateBack = null").getResultList();
+       return null;
     }
 }

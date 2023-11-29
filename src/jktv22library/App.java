@@ -8,6 +8,7 @@ import Managers.HistoryManager;
 import Managers.ReaderManager;
 import Managers.BookManager;
 import java.util.Scanner;
+import tools.EntityManagerSingleton;
 
 /**
  *
@@ -70,6 +71,8 @@ class App {
                 default:
                     System.out.println("Choice number from list !");;
             }
-        } while (repeat);
+        } while (repeat);              
+        EntityManagerSingleton.getInstance().closeEntityManagerFactory();
     }    
+    
 }

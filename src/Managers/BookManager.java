@@ -92,23 +92,18 @@ public class BookManager {
     }
 
     public void printListGiveOutBooks() {
-        List<History> histories = historyFacade.findAll();
+        List<History> histories = historyFacade.findAllReadingBooks();
          System.out.println("-----List books of hands ------");
          for (int i = 0; i < histories.size(); i++){
-            if(histories.get(i).getDateBack()== null){
              System.out.printf("%d. \"%s\" to read %s %s. %s \n",
                      i+1,
                      histories.get(i).getBook().getTitle(),
                      histories.get(i).getReader().getFirstname(),
                      histories.get(i).getReader().getLastname(),
                      histories.get(i).getReader().getPhone()
-                );
-            }else{
-                System.out.println("Not found give out books");
+                );          
             }
         }
-    }
-
     List<Book> books() {
         return bookFacade.findAll();
     }

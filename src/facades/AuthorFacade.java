@@ -6,10 +6,8 @@
 package facades;
 
 import entity.Author;
-import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import tools.EntityManagerSingleton;
 
 /**
  *
@@ -20,8 +18,8 @@ public class AuthorFacade extends AbstractFacade<Author>{
     
     public AuthorFacade() {
         super(Author.class);
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JKTV22LibraryPU");
-        this.em = emf.createEntityManager();
+        EntityManagerSingleton entityManagerSingleton = EntityManagerSingleton.getInstance();
+        this.em=entityManagerSingleton.getEntityManager();
         
     }
 

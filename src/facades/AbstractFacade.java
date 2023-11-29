@@ -7,6 +7,7 @@ package facades;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -14,29 +15,45 @@ import javax.persistence.EntityManager;
  * 
  */
 public abstract class AbstractFacade<T> {
-    private Class<T> entityClass;
+    private final Class<T> entityClass;
+    
     public AbstractFacade(Class<T> entityClass){
         this.entityClass = entityClass;
     }
     protected abstract  EntityManager getEntityManager();/*доступен внутри класса и наследникам*/
     
      public void create(T entity) {
-        getEntityManager().getTransaction().begin();
-            getEntityManager().persist(entity);
-        getEntityManager().getTransaction().commit();
+         try {
+             getEntityManager().getTransaction().begin();
+                getEntityManager().persist(entity);
+             getEntityManager().getTransaction().commit();
+         } catch (Exception e) {
+             if (getEntityManager().getTransaction() != null &&  getEntityManager().getTransaction().isActive()) {
+                 getEntityManager().getTransaction().rollback();
+                 
+             }
+         }
+        
     }
     public T find(Long id){
         return getEntityManager().find(entityClass, id);
     }
     
     public List<T> findAll(){   
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from (entityClass));
-        return getEntityManager().createQuery(cq).getResultList();     
+        CriteriaQuery criteriaQuery = getEntityManager().getCriteriaBuilder().createQuery();
+        criteriaQuery.select(criteriaQuery.from (entityClass));/*изучить подробнее*/
+        return getEntityManager().createQuery(criteriaQuery).getResultList();     
     }
     public void edit(T entity){
-      getEntityManager().getTransaction().begin();
-            getEntityManager().merge(entity);
-        getEntityManager().getTransaction().commit();  
+     try {
+            getEntityManager().getTransaction().begin();
+                getEntityManager().merge(entity);
+            getEntityManager().getTransaction().commit();
+         } catch (Exception e) {
+             if (getEntityManager().getTransaction() != null &&  getEntityManager().getTransaction().isActive()) {
+                 getEntityManager().getTransaction().rollback();
+                 
+             }
+         }
     }
 }
